@@ -4,9 +4,10 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.github.microprograms.micro_api_runtime.annotation.MicroApiAnnotation;
-import com.github.microprograms.micro_api_runtime.enums.MicroApiReserveResponseCodeEnum;
-import com.github.microprograms.micro_api_runtime.exception.MicroApiExecuteException;
 import com.github.microprograms.micro_api_runtime.model.Request;
 import com.github.microprograms.micro_api_runtime.model.Response;
 
@@ -14,39 +15,77 @@ import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.matchprocessor.ClassAnnotationMatchProcessor;
 
 public class MicroApiRuntime {
-    private static final Map<String, Class<?>> apiClasses = new HashMap<>();
+    private static final Logger log = LoggerFactory.getLogger(MicroApiRuntime.class);
+    private static final Map<String, ApiWrapper> apis = new HashMap<>();
 
     public static void scan(String... javaPackageNames) {
         new FastClasspathScanner(javaPackageNames).matchClassesWithAnnotation(MicroApiAnnotation.class, new ClassAnnotationMatchProcessor() {
             @Override
-            public void processMatch(Class<?> classWithAnnotation) {
-                String javaClassName = classWithAnnotation.getSimpleName();
-                apiClasses.put(javaClassName, classWithAnnotation);
+            @SuppressWarnings("unchecked")
+            public void processMatch(Class<?> apiClass) {
+                String apiName = apiClass.getSimpleName();
+                if (contains(apiName)) {
+                    log.warn("duplicate api, apiName={}, class={}", apiName, apiClass);
+                }
+                ApiWrapper apiWrapper = new ApiWrapper();
+                apiWrapper.setApiClass(apiClass);
+                for (Class<?> subClass : apiClass.getDeclaredClasses()) {
+                    if (Request.class.isAssignableFrom(subClass)) {
+                        apiWrapper.setRequestClass((Class<? extends Request>) subClass);
+                    }
+                    if (Response.class.isAssignableFrom(subClass)) {
+                        apiWrapper.setResponseClass((Class<? extends Response>) subClass);
+                    }
+                }
+                apis.put(apiName, apiWrapper);
+                log.info("api loaded, apiName={}, class={}", apiName, apiClass);
             }
         }).scan();
     }
 
-    public static Response execute(String apiName, Request request) {
-        request.setExecuteByEngineTimestamp(System.currentTimeMillis());
-        Response response = null;
-        try {
-            Class<?> apiClass = apiClasses.get(apiName);
+    public static boolean contains(String apiName) {
+        return apis.containsKey(apiName);
+    }
+
+    public static ApiWrapper get(String apiName) {
+        return apis.get(apiName);
+    }
+
+    public static class ApiWrapper {
+        private Class<?> apiClass;
+        private Class<? extends Request> requestClass = Request.class;
+        private Class<? extends Response> responseClass = Response.class;
+
+        public Response execute(Request request) throws Exception {
+            request.setExecuteByEngineTimestamp(System.currentTimeMillis());
             Method method = apiClass.getMethod("execute", Request.class);
-            response = (Response) method.invoke(null, request);
+            Response response = (Response) method.invoke(null, request);
             response.setOverByEngineTimestamp(System.currentTimeMillis());
             return response;
-        } catch (Throwable e) {
-            if (response == null) {
-                response = new Response();
-            }
-            if (e instanceof MicroApiExecuteException) {
-                MicroApiExecuteException passthrough = (MicroApiExecuteException) e;
-                response.error(passthrough.getResponseCode(), passthrough.getCause());
-            } else {
-                response.error(MicroApiReserveResponseCodeEnum.api_execute_exception, e);
-            }
-            response.setOverByEngineTimestamp(System.currentTimeMillis());
-            return response;
+        }
+
+        public Class<?> getApiClass() {
+            return apiClass;
+        }
+
+        public void setApiClass(Class<?> apiClass) {
+            this.apiClass = apiClass;
+        }
+
+        public Class<? extends Request> getRequestClass() {
+            return requestClass;
+        }
+
+        public void setRequestClass(Class<? extends Request> requestClass) {
+            this.requestClass = requestClass;
+        }
+
+        public Class<? extends Response> getResponseClass() {
+            return responseClass;
+        }
+
+        public void setResponseClass(Class<? extends Response> responseClass) {
+            this.responseClass = responseClass;
         }
     }
 }
