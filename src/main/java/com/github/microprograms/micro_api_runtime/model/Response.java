@@ -4,10 +4,6 @@ import com.github.microprograms.micro_api_runtime.enums.MicroApiReserveResponseC
 import com.github.microprograms.micro_entity_definition_runtime.annotation.Comment;
 import com.github.microprograms.micro_entity_definition_runtime.annotation.Required;
 
-/**
- * @author 徐泽威 xuzewei_2012@126.com
- * @time 2017年4月7日 下午12:51:01
- */
 public class Response {
     @Comment("API接口名字") @Required(true) private String apiName;
     @Comment("请求唯一标识符") @Required(true) private String requestUuid;
