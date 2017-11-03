@@ -1,5 +1,7 @@
 package com.github.microprograms.micro_api_runtime.model;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
+
 import com.github.microprograms.micro_api_runtime.enums.MicroApiReserveResponseCodeEnum;
 import com.github.microprograms.micro_entity_definition_runtime.annotation.Comment;
 import com.github.microprograms.micro_entity_definition_runtime.annotation.Required;
@@ -17,20 +19,21 @@ public class Response {
         this.message = MicroApiReserveResponseCodeEnum.success.getMessage();
     }
 
-    public void error(int code, String message) {
+    private void error(int code, String message, String stackTrace) {
         if (code == MicroApiReserveResponseCodeEnum.success.getCode()) {
-            code = MicroApiReserveResponseCodeEnum.api_execute_exception.getCode();
+            code = MicroApiReserveResponseCodeEnum.unknown_exception.getCode();
         }
         this.code = code;
         this.message = message;
+        this.stackTrace = stackTrace;
     }
 
     public void error(ResponseCode responseCode) {
-        error(responseCode.getCode(), responseCode.getMessage());
+        error(responseCode.getCode(), responseCode.getMessage(), null);
     }
 
-    public void error(ResponseCode responseCode, String overrideMessage) {
-        error(responseCode.getCode(), overrideMessage);
+    public void error(ResponseCode responseCode, Throwable cause) {
+        error(responseCode.getCode(), responseCode.getMessage(), ExceptionUtils.getStackTrace(cause));
     }
 
     public String getApiName() {
