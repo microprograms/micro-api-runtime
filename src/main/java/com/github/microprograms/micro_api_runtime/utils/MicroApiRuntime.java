@@ -25,7 +25,7 @@ public class MicroApiRuntime {
             public void processMatch(Class<?> apiClass) {
                 String apiName = apiClass.getSimpleName();
                 if (contains(apiName)) {
-                    log.warn("duplicate api, apiName={}, class={}", apiName, apiClass);
+                    log.error("duplicate api, apiName={}, class={}", apiName, apiClass.getName());
                 }
                 ApiWrapper apiWrapper = new ApiWrapper();
                 apiWrapper.setApiClass(apiClass);
@@ -38,7 +38,7 @@ public class MicroApiRuntime {
                     }
                 }
                 apis.put(apiName, apiWrapper);
-                log.info("api loaded, apiName={}, class={}", apiName, apiClass);
+                log.info("api loaded, apiName={}, class={}", apiName, apiClass.getName());
             }
         }).scan();
     }
