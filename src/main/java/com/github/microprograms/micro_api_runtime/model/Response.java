@@ -33,7 +33,7 @@ public class Response {
     }
 
     public void error(ResponseCode responseCode, Throwable cause) {
-        error(responseCode.getCode(), responseCode.getMessage(), ExceptionUtils.getStackTrace(cause));
+        error(responseCode.getCode(), responseCode.getMessage(), cause == null ? null : ExceptionUtils.getStackTrace(cause));
     }
 
     public String getApiName() {
