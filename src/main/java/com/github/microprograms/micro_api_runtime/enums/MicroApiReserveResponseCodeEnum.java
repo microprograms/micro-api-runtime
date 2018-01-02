@@ -31,25 +31,33 @@ public enum MicroApiReserveResponseCodeEnum implements ResponseCode {
      */
     invalid_parameters_exception(5, "无效的参数"),
     /**
+     * 未登录
+     */
+    unknown_operator_exception(6, "未登录"),
+    /**
+     * 没有权限
+     */
+    permission_denied_exception(7, "没有权限"),
+    /**
      * 资源不存在或已被删除
      */
-    resource_not_exists_exception(6, "资源不存在或已被删除"),
+    resource_not_exists_exception(8, "资源不存在或已被删除"),
     /**
      * 非法请求
      */
-    illegal_request_exception(7, "非法请求"),
+    illegal_request_exception(9, "非法请求"),
     /**
      * 数据已被修改，请重新操作
      */
-    concurrency_modification_exception(8, "数据已被修改，请重新操作"),
+    concurrency_modification_exception(10, "数据已被修改，请重新操作"),
     /**
      * API执行异常
      */
-    api_execute_exception(9, "API执行异常"),
+    api_execute_exception(11, "API执行异常"),
     /**
      * 未知异常
      */
-    unknown_exception(10, "未知异常");
+    unknown_exception(12, "未知异常");
 
     private final int code;
     private final String message;
