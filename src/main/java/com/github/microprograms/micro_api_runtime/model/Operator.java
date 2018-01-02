@@ -1,6 +1,6 @@
 package com.github.microprograms.micro_api_runtime.model;
 
-public abstract class Operator<T> {
+public class Operator<T> {
     private final String uniqueId;
     private final String readableName;
     private final boolean permissionDenied;
