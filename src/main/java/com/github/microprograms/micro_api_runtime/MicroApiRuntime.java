@@ -1,4 +1,4 @@
-package com.github.microprograms.micro_api_runtime.utils;
+package com.github.microprograms.micro_api_runtime;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.github.microprograms.micro_api_runtime.annotation.MicroApiAnnotation;
+import com.github.microprograms.micro_api_runtime.annotation.MicroApi;
 import com.github.microprograms.micro_api_runtime.model.Request;
 import com.github.microprograms.micro_api_runtime.model.Response;
 
@@ -19,7 +19,7 @@ public class MicroApiRuntime {
     private static final Map<String, ApiWrapper> apis = new HashMap<>();
 
     public static void scan(String... javaPackageNames) {
-        new FastClasspathScanner(javaPackageNames).matchClassesWithAnnotation(MicroApiAnnotation.class, new ClassAnnotationMatchProcessor() {
+        new FastClasspathScanner(javaPackageNames).matchClassesWithAnnotation(MicroApi.class, new ClassAnnotationMatchProcessor() {
             @Override
             @SuppressWarnings("unchecked")
             public void processMatch(Class<?> apiClass) {

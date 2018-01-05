@@ -1,7 +1,7 @@
 package com.github.microprograms.micro_api_runtime.model;
 
-import com.github.microprograms.micro_entity_definition_runtime.annotation.Comment;
-import com.github.microprograms.micro_entity_definition_runtime.annotation.Required;
+import com.github.microprograms.micro_nested_data_model_runtime.Comment;
+import com.github.microprograms.micro_nested_data_model_runtime.Required;
 
 public class Request {
     @Comment("API接口名字") @Required(true) private String apiName;

@@ -8,11 +8,21 @@ import java.lang.annotation.Target;
 
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface MicroApiAnnotation {
+public @interface MicroApi {
+    /**
+     * @return 备注
+     */
+    String comment() default "";
+
+    /**
+     * @return 详情
+     */
+    String description() default "";
+
     /**
      * @return 类型
      */
-    String type();
+    String type() default "";
 
     /**
      * @return 版本
