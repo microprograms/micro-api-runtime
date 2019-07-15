@@ -5,7 +5,7 @@
 
     <groupId>com.github.microprograms</groupId>
     <artifactId>micro-api-runtime</artifactId>
-    <version>2.0.1</version>
+    <version>5.0.0</version>
     <packaging>jar</packaging>
 
     <name>micro-api-runtime</name>
@@ -79,11 +79,6 @@
             <groupId>io.github.lukehutch</groupId>
             <artifactId>fast-classpath-scanner</artifactId>
             <version>2.0.18</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.microprograms</groupId>
-            <artifactId>micro-nested-data-model-runtime</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
