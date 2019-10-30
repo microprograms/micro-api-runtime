@@ -1,5 +1,8 @@
 package com.github.microprograms.micro_api_runtime.model;
 
+/**
+ * API请求
+ */
 public class Request {
 	/**
 	 * API接口名字
@@ -9,14 +12,6 @@ public class Request {
 	 * 请求唯一标识符
 	 */
 	private String uuid;
-	/**
-	 * 请求发送时间
-	 */
-	private long sendToEngineTimestamp;
-	/**
-	 * 请求被服务器开始处理的时间戳
-	 */
-	private long executeByEngineTimestamp;
 
 	public String getApiName() {
 		return apiName;
@@ -32,21 +27,5 @@ public class Request {
 
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
-	}
-
-	public long getSendToEngineTimestamp() {
-		return sendToEngineTimestamp;
-	}
-
-	public void setSendToEngineTimestamp(long sendToEngineTimestamp) {
-		this.sendToEngineTimestamp = sendToEngineTimestamp;
-	}
-
-	public long getExecuteByEngineTimestamp() {
-		return executeByEngineTimestamp;
-	}
-
-	public void setExecuteByEngineTimestamp(long executeByEngineTimestamp) {
-		this.executeByEngineTimestamp = executeByEngineTimestamp;
 	}
 }

@@ -1,31 +1,36 @@
 package com.github.microprograms.micro_api_runtime.model;
 
+/**
+ * 操作人
+ * 
+ * @param <T>
+ */
 public class Operator<T> {
-    private final String uniqueId;
-    private final String readableName;
-    private final boolean permissionDenied;
-    private final T raw;
+	private final String uniqueId;
+	private final String readableName;
+	private final boolean permissionDenied;
+	private final T raw;
 
-    public Operator(String uniqueId, String readableName, boolean permissionDenied, T raw) {
-        this.uniqueId = uniqueId;
-        this.readableName = readableName;
-        this.permissionDenied = permissionDenied;
-        this.raw = raw;
-    }
+	public Operator(String uniqueId, String readableName, boolean permissionDenied, T raw) {
+		this.uniqueId = uniqueId;
+		this.readableName = readableName;
+		this.permissionDenied = permissionDenied;
+		this.raw = raw;
+	}
 
-    public String getUniqueId() {
-        return uniqueId;
-    }
+	public String getUniqueId() {
+		return uniqueId;
+	}
 
-    public String getReadableName() {
-        return readableName;
-    }
+	public String getReadableName() {
+		return readableName;
+	}
 
-    public boolean isPermissionDenied() {
-        return permissionDenied;
-    }
+	public boolean isPermissionDenied() {
+		return permissionDenied;
+	}
 
-    public T getRaw() {
-        return raw;
-    }
+	public T getRaw() {
+		return raw;
+	}
 }
