@@ -6,7 +6,7 @@
 
 	<groupId>com.github.microprograms</groupId>
 	<artifactId>micro-api-runtime</artifactId>
-	<version>6.0.0</version>
+	<version>6.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>micro-api-runtime</name>
@@ -80,6 +80,11 @@
 			<groupId>io.github.lukehutch</groupId>
 			<artifactId>fast-classpath-scanner</artifactId>
 			<version>2.0.18</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.46</version>
 		</dependency>
 	</dependencies>
 
