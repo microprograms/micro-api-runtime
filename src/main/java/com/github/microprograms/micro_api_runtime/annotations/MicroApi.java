@@ -9,8 +9,14 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ TYPE })
 public @interface MicroApi {
-    /**
-     * @return 版本
-     */
-    String version();
+
+	/**
+	 * @return 唯一标识符
+	 */
+	String name();
+
+	/**
+	 * @return 版本
+	 */
+	String version();
 }
