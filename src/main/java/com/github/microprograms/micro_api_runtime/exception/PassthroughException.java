@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.github.microprograms.micro_api_runtime.model.ResponseCode;
 
-public class PassthroughException extends Exception {
+public final class PassthroughException extends Exception {
 	private static final long serialVersionUID = 1L;
 	private static final String format = "(%s) %s";
 	private final ResponseCode responseCode;

@@ -1,6 +1,6 @@
 package com.github.microprograms.micro_api_runtime.exception;
 
-public class ApiNotAvailableException extends Exception {
+public final class ApiNotAvailableException extends Exception {
 	private static final long serialVersionUID = 1L;
 	private String name;
 
